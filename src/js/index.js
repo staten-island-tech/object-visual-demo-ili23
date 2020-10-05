@@ -1,7 +1,12 @@
 const DOMSelectors = {
-    container: document.querySelector(".container"),
-
+  //encapsulation
+    displayContainer: document.querySelector(".container"),
+    fullMenuButton: document.querySelector(".full-btn"),
+    veggieButton: document.querySelector(".veggie-btn"),
+    stockButton: document.querySelector(".stock-btn"),
+    resetButton: document.querySelector(".reset-btn"),
 }
+
 const menu = [
     {
       name: "Pizza Slice",
@@ -70,26 +75,54 @@ const menu = [
   ];
 
 function init(){
-      //through each iteration we will display insertAdjacentHTML
-      //insert adjecent html (position,text);
-      menu.forEach((element) => {
-        DOMSelectors.container.insertAdjacentHTML(
+  DOMSelectors.fullMenuButton.addEventListener("click", function(e) {
+    DOMSelectors.displayContainer.innerHTML = "";
+    menu.forEach((element) => {
+    DOMSelectors.displayContainer.insertAdjacentHTML(
+      "afterbegin",
+      `<ul class="item-list">
+      <li class="item-name item-value">${element.name}</li>
+      <li class="item-price item-value">$${element.price}</li>
+      <li class="item-vegetarian item-value">${element.vegetarian}</li>
+      <li class="item-image"><img class="item-image" src="${element.img}" alt=""/></li>
+      <li class="item-in-stock item-value">${element.inStock}</li>
+    </ul>`
+    )
+    });
+});
+  const veggieOptions = menu.filter((element)=> element.vegetarian === true);
+  DOMSelectors.veggieButton.addEventListener("click", function(e){
+    DOMSelectors.displayContainer.innerHTML = "";
+    veggieOptions.forEach((element)=>{
+       DOMSelectors.displayContainer.insertAdjacentHTML(
+        "afterbegin",
+        `<ul class="item-list">
+        <li class="item-name item-value">${element.name}</li>
+        <li class="item-price item-value">$${element.price}</li>
+        <li class="item-vegetarian item-value">${element.vegetarian}</li>
+        <li class="item-image"><img class="item-image" src="${element.img}" alt=""/></li>
+        <li class="item-in-stock item-value">${element.inStock}</li>
+      </ul>`
+      ) 
+    });
+  });
+}
+  init();
+
+
+
+
+       /*  menu.forEach((element) => {
+        DOMSelectors.displayContainer.insertAdjacentHTML(
           "afterbegin",
           `
           <ul class="item-list">
           <li class="item-name item-value">${element.name}</li>
           <li class="item-price item-value">$${element.price}</li>
-          <li class="item-vegetarian item-value">${element.vegetarian ? "Vegeterian" : "Not Vegeterian"}
-          </li>
-          <li class="item-image">
-            <img
-              class="item-image"
-              src="${element.img}"
-              alt=""
-            />
-          </li>
+          <li class="item-vegetarian item-value">${element.vegetarian}</li>
+          <li class="item-image"><img class="item-image" src="${element.img}" alt=""/></li>
           <li class="item-in-stock item-value">
-            ${element.inStock ? "In Stock": "Out of Stock"}
+            ${element.inStock}
             </li>
         </ul>  
         `
@@ -97,6 +130,4 @@ function init(){
       
       //text will be template literal ``
       //Instock should say ${`item.instock`}
-  })
-}
-  init();
+  }) */
