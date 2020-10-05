@@ -1,5 +1,5 @@
 const DOMSelectors = {
-    displayContainer: document.querySelector(".container"),
+    container: document.querySelector(".container"),
 
 }
 const menu = [
@@ -69,14 +69,34 @@ const menu = [
     },
   ];
 
-  const init = function(){
-      //iterate through menu (array)
-        //console.log(array)
-        console.log(menu[0]);
+function init(){
       //through each iteration we will display insertAdjacentHTML
       //insert adjecent html (position,text);
-
+      menu.forEach((element) => {
+        DOMSelectors.container.insertAdjacentHTML(
+          "afterbegin",
+          `
+          <ul class="item-list">
+          <li class="item-name item-value">${element.name}</li>
+          <li class="item-price item-value">$${element.price}</li>
+          <li class="item-vegetarian item-value">${element.vegetarian ? "Vegeterian" : "Not Vegeterian"}
+          </li>
+          <li class="item-image">
+            <img
+              class="item-image"
+              src="${element.img}"
+              alt=""
+            />
+          </li>
+          <li class="item-in-stock item-value">
+            ${element.inStock ? "In Stock": "Out of Stock"}
+            </li>
+        </ul>  
+        `
+        );
+      
       //text will be template literal ``
       //Instock should say ${`item.instock`}
-  }
+  })
+}
   init();
