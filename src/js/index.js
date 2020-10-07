@@ -103,8 +103,26 @@ function init(){
         <li class="item-image"><img class="item-image" src="${element.img}" alt=""/></li>
         <li class="item-in-stock item-value">${element.inStock}</li>
       </ul>`
-      ) 
+      );
     });
+  });
+  const stockOptions = menu.filter((element)=> element.inStock === true);
+  DOMSelectors.stockButton.addEventListener("click", function(e){
+    DOMSelectors.displayContainer.innerHTML = "";
+    stockOptions.forEach((element)=>{
+      DOMSelectors.displayContainer.insertAdjacentHTML("afterbegin",
+      `<ul class="item-list">
+      <li class="item-name item-value">${element.name}</li>
+      <li class="item-price item-value">$${element.price}</li>
+      <li class="item-vegetarian item-value">${element.vegetarian}</li>
+      <li class="item-image"><img class="item-image" src="${element.img}" alt=""/></li>
+      <li class="item-in-stock item-value">${element.inStock}</li>
+    </ul>`
+    );
+    });
+  });
+  DOMSelectors.resetButton.addEventListener("click", function(e){
+    DOMSelectors.displayContainer.innerHTML = "";
   });
 }
   init();
